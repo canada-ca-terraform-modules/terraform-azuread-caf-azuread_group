@@ -1,13 +1,9 @@
-
-resource azuread_group groups {
-  for_each = var.azuread_groupsMap
-
-  name   = local.names[each.value.userDefinedString]
-  owners = data.azuread_users.group_owners[each.key].object_ids
+data azuread_users group_owners {
+  user_principal_names = var.owners
 }
 
-data azuread_users group_owners {
-  for_each = var.azuread_groupsMap
-
-  user_principal_names = each.value.owners
+resource azuread_group group {
+  name                    = local.name
+  owners                  = data.azuread_users.group_owners.object_ids
+  prevent_duplicate_names = var.prevent_duplicate_names
 }
