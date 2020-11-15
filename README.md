@@ -43,9 +43,9 @@ No requirements.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | env | 4 chars defining the environment name prefix for the VM. Example: ScSc | `string` | n/a | yes |
-| owners | A set of owners who own this Group. Supported Object types are Users or Service Principals. | `any` | n/a | yes |
 | userDefinedString | User defined portion of the server name. Up to 8 chars minus the postfix lenght | `string` | n/a | yes |
 | maxLength | Maximum length of CAF compliant name | `number` | `80` | no |
+| owners | A set of owners who own this Group. Supported Object types are Users or Service Principals. | `any` | `null` | no |
 | prevent\_duplicate\_names | If true, will return an error when an existing Group is found with the same name. | `bool` | `true` | no |
 
 ## Outputs
