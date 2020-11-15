@@ -1,19 +1,26 @@
 variable "env" {
-  description = "(Required) You can use a prefix to add to the list of resource groups you want to create"
+  description = "4 chars defining the environment name prefix for the VM. Example: ScSc"
+  type        = string
 }
 
 variable "maxLength" {
-  default = 80
-  type    = number
+  description = "Maximum length of CAF compliant name"
+  default     = 80
+  type        = number
 }
 
 variable "userDefinedString" {
-  type = string
+  description = "User defined portion of the server name. Up to 8 chars minus the postfix lenght"
+  type        = string
 }
 
-variable "owners" {}
+variable "owners" {
+  description = "A set of owners who own this Group. Supported Object types are Users or Service Principals."
+  type        = any
+}
 
 variable "prevent_duplicate_names" {
-  type    = bool
-  default = true
+  description = "If true, will return an error when an existing Group is found with the same name."
+  type        = bool
+  default     = true
 }
