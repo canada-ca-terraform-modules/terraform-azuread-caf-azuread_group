@@ -17,11 +17,9 @@ locals {
   azuread_groupsMap = {
     L1_Subscription_Owners = {
       userDefinedString = "${local.template_name}_L1_Subscription_Owners"
-      owners            = {}
     },
     L1_Subscription_Contributors = {
       userDefinedString = "${local.template_name}_L1_Subscription_Contributors"
-      owners            = {}
     },
   }
 }
@@ -32,5 +30,4 @@ module azuread_groups_L1 {
 
   env               = "ScTc"
   userDefinedString = each.value.userDefinedString
-  owners            = each.value.owners
 }
