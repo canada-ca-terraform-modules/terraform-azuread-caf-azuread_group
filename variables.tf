@@ -17,7 +17,6 @@ variable "userDefinedString" {
 variable "owners" {
   description = "A set of owners who own this Group. Supported Object types are Users or Service Principals."
   type        = any
-  default     = null
 }
 
 variable "prevent_duplicate_names" {
