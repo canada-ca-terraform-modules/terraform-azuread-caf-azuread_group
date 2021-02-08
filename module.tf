@@ -3,7 +3,7 @@ data azuread_users group_owners {
 }
 
 resource azuread_group group {
-  name                    = local.name
+  display_name            = local.name
   owners                  = data.azuread_users.group_owners.object_ids
   prevent_duplicate_names = var.prevent_duplicate_names
 }
