@@ -1,7 +1,7 @@
 name: test module
 
 on:
-  pull:
+  pull_request:
     branches:
       - dev
       - master
