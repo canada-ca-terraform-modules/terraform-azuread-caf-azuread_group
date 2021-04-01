@@ -2,14 +2,14 @@ terraform {
   required_providers {
     azuread = {
       source  = "hashicorp/azuread"
-      version = ">= 0.11.0"
+      version = ">= 1.4.0"
     }
   }
   required_version = ">= 0.13"
 }
 
 provider "azuread" {
-  version = ">= 0.11.0"
+#   version = ">= 0.11.0"
 }
 
 locals {
@@ -27,7 +27,7 @@ locals {
 }
 
 module azuread_groups_L1 {
-  source   = "github.com/canada-ca-terraform-modules/terraform-azuread-caf-azuread_group?ref=v1.1.0"
+  source   = "../."
   for_each = local.azuread_groupsMap
 
   env               = "ScTc"
