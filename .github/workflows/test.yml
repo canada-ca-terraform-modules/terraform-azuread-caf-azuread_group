@@ -1,7 +1,7 @@
 name: test module
 
 on:
-  push:
+  pull:
     branches:
       - dev
       - master
@@ -41,11 +41,19 @@ jobs:
         run: |
           terraform version
 
-      - name: Deploy module test
+      - name: terraform init
         run: |
           cd /tf/caf/test
           terraform init
+
+      - name: terraform plan
+        run: |
+          cd /tf/caf/test
           terraform plan -out plan
+
+      - name: terraform apply
+        run: |
+          cd /tf/caf/test
           terraform apply "plan"
 
       - name: Destroy module test
