@@ -2,7 +2,7 @@
 resource azuread_group groups {
   for_each = var.azuread_groupsMap
 
-  name   = local.names[each.value.userDefinedString]
+  display_name   = local.names[each.value.userDefinedString]
   owners = data.azuread_users.group_owners[each.key].object_ids
 }
 
