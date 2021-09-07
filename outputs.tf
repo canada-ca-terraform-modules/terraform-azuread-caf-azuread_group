@@ -4,11 +4,11 @@ output "object" {
   value = azuread_group.group
 }
 
-output "name" {
-  description = "Returns the display name for the Group."
+# output "name" {
+#   description = "Returns the display name for the Group."
 
-  value = azuread_group.group.name
-}
+#   value = azuread_group.group.name
+# }
 
 output "owners" {
   description = "Returns a set of owners who own this Group."
