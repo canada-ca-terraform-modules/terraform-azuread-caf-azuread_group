@@ -5,7 +5,7 @@ data "azuread_users" "group_owners" {
 variable "owners_ids" {
   description = "A set of owners ids who own this Group."
   type        = any
-  default     - []
+  default     = []
 }
 
 resource "azuread_group" "group" {
