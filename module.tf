@@ -2,9 +2,15 @@ data "azuread_users" "group_owners" {
   user_principal_names = var.owners
 }
 
+variable "owners_ids" {
+  description = "A set of owners ids who own this Group."
+  type        = any
+  default     = []
+}
+
 resource "azuread_group" "group" {
   display_name            = local.name
-  owners                  = data.azuread_users.group_owners.object_ids
+  owners                  = concat(data.azuread_users.group_owners.object_ids, var.owners_ids)
   prevent_duplicate_names = var.prevent_duplicate_names
   mail_enabled            = var.mail_enabled
   security_enabled        = var.security_enabled
