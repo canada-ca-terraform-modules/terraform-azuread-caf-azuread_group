@@ -28,6 +28,7 @@ module azuread_groups_L1 {
 }
 ```
 
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 No requirements.
@@ -73,3 +74,4 @@ No modules.
 | <a name="output_id"></a> [id](#output\_id) | Return the Object ID of the Group. |
 | <a name="output_object"></a> [object](#output\_object) | Returns the full set of azuread\_group created |
 | <a name="output_owners"></a> [owners](#output\_owners) | Returns a set of owners who own this Group. |
+<!-- END_TF_DOCS -->
