@@ -13,4 +13,11 @@ resource "azuread_group" "group" {
   behaviors               = var.behaviors
   mail_nickname           = var.mail_nickname
   types                   = var.types
+
+  lifecycle {
+    ignore_changes = [
+      administrative_unit_ids, 
+      owners
+    ]
+  }
 }
