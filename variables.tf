@@ -44,7 +44,7 @@ variable "mail_nickname" {
 }
 
 variable "security_enabled" {
-  description = "Whether the group is a mail enabled, with a shared group mailbox. At least one of mail_enabled or security_enabled must be specified. Only Microsoft 365 groups can be mail enabled (see the types property)."
+  description = "Whether the group is a security-enabled group. At least one of mail_enabled or security_enabled must be specified. A security-enabled group can be assigned to Azure AD roles when assignable_to_role is true."
   type        = bool
   default     = true
 }
