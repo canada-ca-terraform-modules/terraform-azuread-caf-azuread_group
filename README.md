@@ -60,14 +60,16 @@ GitHub Actions workflow at `.github/workflows/terraform-ci.yml` runs fmt, init, 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-No requirements.
-
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9 |
+| <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) | ~> 3.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azuread"></a> [azuread](#provider\_azuread) | n/a |
+| <a name="provider_azuread"></a> [azuread](#provider\_azuread) | ~> 3.0 |
 
 ## Modules
 
@@ -84,18 +86,31 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_administrative_unit_ids"></a> [administrative\_unit\_ids](#input\_administrative\_unit\_ids) | (Optional) The object IDs of administrative units in which the group is a member. If specified, new groups will be created in the scope of the first administrative unit and added to the others. If empty, new groups will be created at the tenant level. | `any` | `null` | no |
 | <a name="input_assignable_to_role"></a> [assignable\_to\_role](#input\_assignable\_to\_role) | Indicates whether this group can be assigned to an Azure Active Directory role. Can only be true for security-enabled groups. Changing this forces a new resource to be created. | `bool` | `false` | no |
+| <a name="input_auto_subscribe_new_members"></a> [auto\_subscribe\_new\_members](#input\_auto\_subscribe\_new\_members) | (Optional) Indicates whether new members added to the group will be auto-subscribed to receive email notifications. Can only be set for Unified groups. | `bool` | `null` | no |
 | <a name="input_behaviors"></a> [behaviors](#input\_behaviors) | A set of behaviors for a Microsoft 365 group. Possible values are AllowOnlyMembersToPost, HideGroupInOutlook, SubscribeNewGroupMembers and WelcomeEmailDisabled. See official documentation for more details. Changing this forces a new resource to be created. | `any` | `[]` | no |
 | <a name="input_description"></a> [description](#input\_description) | The description for the group. | `string` | `""` | no |
+| <a name="input_dynamic_membership"></a> [dynamic\_membership](#input\_dynamic\_membership) | (Optional) A dynamic\_membership block (enabled, rule). Required when types contains DynamicMembership. Cannot be used with the members property. | `any` | `null` | no |
 | <a name="input_env"></a> [env](#input\_env) | 4 chars defining the environment name prefix for the VM. Example: ScSc | `string` | n/a | yes |
+| <a name="input_external_senders_allowed"></a> [external\_senders\_allowed](#input\_external\_senders\_allowed) | (Optional) Indicates whether people external to the organization can send messages to the group. Can only be set for Unified groups. | `bool` | `null` | no |
+| <a name="input_hide_from_address_lists"></a> [hide\_from\_address\_lists](#input\_hide\_from\_address\_lists) | (Optional) Indicates whether the group is displayed in certain parts of the Outlook user interface. Can only be set for Unified groups. | `bool` | `null` | no |
+| <a name="input_hide_from_outlook_clients"></a> [hide\_from\_outlook\_clients](#input\_hide\_from\_outlook\_clients) | (Optional) Indicates whether the group is displayed in Outlook clients. Can only be set for Unified groups. | `bool` | `null` | no |
 | <a name="input_mail_enabled"></a> [mail\_enabled](#input\_mail\_enabled) | Whether the group is a mail enabled, with a shared group mailbox. At least one of mail\_enabled or security\_enabled must be specified. Only Microsoft 365 groups can be mail enabled (see the types property). | `bool` | `false` | no |
 | <a name="input_mail_nickname"></a> [mail\_nickname](#input\_mail\_nickname) | The mail alias for the group, unique in the organisation. Required for mail-enabled groups. Changing this forces a new resource to be created. | `string` | `null` | no |
 | <a name="input_maxLength"></a> [maxLength](#input\_maxLength) | Maximum length of CAF compliant name | `number` | `80` | no |
+| <a name="input_members"></a> [members](#input\_members) | (Optional) A set of members who should be present in this group. Supported object types are Users, Groups or Service Principals. Cannot be used with the dynamic\_membership block. | `any` | `null` | no |
+| <a name="input_name"></a> [name](#input\_name) | (Optional) Override the auto-generated display name for the Group. Existing deployments whose real name diverges from the {env}-{userDefinedString} formula can pin it here without a destroy/recreate. | `string` | `null` | no |
+| <a name="input_onpremises_group_type"></a> [onpremises\_group\_type](#input\_onpremises\_group\_type) | (Optional) The on-premises group type that the AAD group will be written as, when writeback is enabled. Possible values are UniversalDistributionGroup, UniversalMailEnabledSecurityGroup, or UniversalSecurityGroup. | `string` | `null` | no |
 | <a name="input_owners"></a> [owners](#input\_owners) | A set of owners who own this Group. Supported Object types are Users or Service Principals. | `any` | n/a | yes |
 | <a name="input_prevent_duplicate_names"></a> [prevent\_duplicate\_names](#input\_prevent\_duplicate\_names) | If true, will return an error when an existing Group is found with the same name. | `bool` | `true` | no |
+| <a name="input_provisioning_options"></a> [provisioning\_options](#input\_provisioning\_options) | (Optional) A set of provisioning options for a Microsoft 365 group. The only supported value is Team. Changing this forces a new resource to be created. | `any` | `null` | no |
 | <a name="input_security_enabled"></a> [security\_enabled](#input\_security\_enabled) | Whether the group is a mail enabled, with a shared group mailbox. At least one of mail\_enabled or security\_enabled must be specified. Only Microsoft 365 groups can be mail enabled (see the types property). | `bool` | `true` | no |
+| <a name="input_theme"></a> [theme](#input\_theme) | (Optional) The colour theme for a Microsoft 365 group. Possible values are Blue, Green, Orange, Pink, Purple, Red or Teal. | `string` | `null` | no |
 | <a name="input_types"></a> [types](#input\_types) | A set of group types to configure for the group. The only supported type is Unified, which specifies a Microsoft 365 group. Required when mail\_enabled is true. Changing this forces a new resource to be created. | `any` | `[]` | no |
 | <a name="input_userDefinedString"></a> [userDefinedString](#input\_userDefinedString) | User defined portion of the server name. Up to 8 chars minus the postfix lenght | `string` | n/a | yes |
+| <a name="input_visibility"></a> [visibility](#input\_visibility) | (Optional) The group join policy and group content visibility. Possible values are Private, Public, or Hiddenmembership. | `string` | `null` | no |
+| <a name="input_writeback_enabled"></a> [writeback\_enabled](#input\_writeback\_enabled) | (Optional) Whether the group will be written back to the configured on-premises Active Directory when Azure AD Connect is used. | `bool` | `null` | no |
 
 ## Outputs
 
