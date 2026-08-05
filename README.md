@@ -1,37 +1,67 @@
 # Deploys Azure Active Directory Groups
 
-Creates an Azure VNET.
+Creates an `azuread_group` resource following the Government of Canada CAF naming and tagging convention.
 
-Reference the module to a specific version (recommended):
+## Usage
+
+### ESLZ module block (`ESLZ/azuread_group.tf`)
 
 ```hcl
-locals {
-  azuread_groupsMap = {
-    L1_Subscription_Owners = {
-      userDefinedString = "${var.group}_${var.project}_L1_Subscription_Owners"
-      owners            = var.L1_RBAC.ownerNames
-    },
-    L1_Subscription_Contributors = {
-      userDefinedString = "${var.group}_${var.project}_L1_Subscription_Contributors"
-      owners            = var.L1_RBAC.ownerNames
-    },
-  }
-}
+module "azuread_group" {
+  source   = "github.com/canada-ca-terraform-modules/terraform-azuread-caf-azuread_group?ref=v1.4.0"
+  for_each = var.azuread_group
 
-module azuread_groups_L1 {
-  source = "github.com/canada-ca-terraform-modules/terraform-azuread-caf-azuread_group?ref=v1.1.0"
-  for_each = local.azuread_groupsMap
-
-  env    = var.env
+  env               = each.value.env
   userDefinedString = each.value.userDefinedString
-  owners = each.value.owners
+  owners            = each.value.owners
 }
 ```
+
+### ESLZ tfvars pattern (`ESLZ/azuread_group.tfvars`)
+
+```hcl
+azuread_group = {
+  L1_Subscription_Owners = {
+    env               = "Dev"
+    userDefinedString = "L1_Subscription_Owners"
+    owners            = ["owner1@example.com", "owner2@example.com"]
+  }
+}
+```
+
+## New arguments (azuread ~> 3.0)
+
+| Key | Type | Description |
+|---|---|---|
+| `name` | string | Optional override for the auto-generated `display_name` |
+| `administrative_unit_ids` | set(string) | Administrative units the group is created in |
+| `auto_subscribe_new_members` | bool | Auto-subscribe new members to email notifications (Unified groups only) |
+| `dynamic_membership` | object({ enabled, rule }) | Dynamic membership rule; requires `types = ["DynamicMembership"]` |
+| `external_senders_allowed` | bool | Allow external senders to message the group (Unified groups only) |
+| `hide_from_address_lists` | bool | Hide the group from the Outlook address book (Unified groups only) |
+| `hide_from_outlook_clients` | bool | Hide the group from Outlook clients (Unified groups only) |
+| `members` | set(string) | Static group members (mutually exclusive with `dynamic_membership`) |
+| `onpremises_group_type` | string | On-premises group type used when `writeback_enabled = true` |
+| `provisioning_options` | set(string) | Microsoft 365 group provisioning options (e.g. `Team`) |
+| `theme` | string | Microsoft 365 group colour theme |
+| `visibility` | string | Group join policy / content visibility |
+| `writeback_enabled` | bool | Write the group back to on-premises Active Directory |
+
+## Testing
+
+```bash
+terraform fmt -recursive && terraform init -backend=false && terraform validate && terraform test
+```
+
+## CI
+
+GitHub Actions workflow at `.github/workflows/terraform-ci.yml` runs fmt, init, validate, test, and tflint on every PR. `.github/workflows/release.yml` tags a GitHub release on merge to `master`, using the version pinned in `ESLZ/azuread_group.tf`.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 No requirements.
+
 
 ## Providers
 

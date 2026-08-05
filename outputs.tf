@@ -1,7 +1,8 @@
 output "object" {
   description = "Returns the full set of azuread_group created"
 
-  value = azuread_group.group
+  value     = azuread_group.group
+  sensitive = true
 }
 
 # output "name" {
