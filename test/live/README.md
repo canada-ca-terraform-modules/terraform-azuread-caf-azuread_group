@@ -22,7 +22,7 @@ a maintainer to run by hand, authenticated as themselves.
 | File | Purpose |
 |---|---|
 | `main.tf` | Module block with `source = "../../"` (a relative path, not a pinned `?ref` - "baseline" and "candidate" are just two on-disk checkouts of this repo), the `azuread` provider config, and an empty `backend "local" {}` block (path supplied at `init` time - see below). |
-| `variables.tf` | `env`, `userDefinedString`, `owners`, and `pr_number` (reserved for parity with other harnesses; unused today since this module has no Azure resource dependency to name-suffix). |
+| `variables.tf` | `env`, `userDefinedString`, `owners`. |
 | `config/azuread_group.tfvars` | One representative real-usage fixture: a plain security-enabled group with a single owner, no v1.4.0 optional arguments. |
 
 No `test_dependencies.tf` - `azuread_group` has no Azure resource dependency
